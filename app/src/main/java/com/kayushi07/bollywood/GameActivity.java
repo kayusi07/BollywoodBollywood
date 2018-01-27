@@ -1,20 +1,30 @@
 package com.kayushi07.bollywood;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,20 +37,29 @@ import MovieData.ExListData2011_2015;
  * Created by Ayushi on 12-01-2018.
  */
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements NetworkStateReceiver.NetworkStateReceiverListener {
 
+    private NetworkStateReceiver networkStateReceiver;
 
     Button b,o1,l1,l2,y,w,o2,o3,d;
     TextView game_txt;
     List<String> expandableListTitle;
     HashMap<String, List<String>> expandableListDetail;
-    int count, randomMovie, bollywood=0;
+    int count, randomMovie, bollywood=0, score=10;
     String f_movie, lowerMovie;
+    Animation animBounce;
+    private AdView mAdView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_page);
+
+        networkStateReceiver = new NetworkStateReceiver();
+        networkStateReceiver.addListener(this);
+        this.registerReceiver(networkStateReceiver, new IntentFilter(android.net.ConnectivityManager.CONNECTIVITY_ACTION));
+
+        mAdView = (AdView) findViewById(R.id.adView);
 
         game_txt = (TextView) findViewById(R.id.movie_name);
         b = (Button) findViewById(R.id.B_btn);
@@ -72,7 +91,7 @@ public class GameActivity extends AppCompatActivity {
 
         for (int i = 0; i < charArrayM.length; i++) {
 
-            if (!(charArrayM[i] == 'A' || charArrayM[i] == 'E' || charArrayM[i] == 'I' || charArrayM[i] == 'O' || charArrayM[i] == 'U' || charArrayM[i] == ' ' || charArrayM[i] == '-')) {
+            if (!(charArrayM[i] == 'A' || charArrayM[i] == 'E' || charArrayM[i] == 'I' || charArrayM[i] == 'O' || charArrayM[i] == 'U' || charArrayM[i] == ' ' || charArrayM[i] == '-' || charArrayM[i] == '.')) {
 
                 charArrayM[i] = '_';
             }
@@ -81,9 +100,12 @@ public class GameActivity extends AppCompatActivity {
         f_movie = new String(charArrayM);
 
 //        f_movie = f_movie.replaceAll(".(?!$)", "$0  ");
-        game_txt.setText(f_movie + "\n\n\n\n\n" + expandedListText);
+        game_txt.setText(f_movie);
+        System.out.println("ACTUAL MOVIE : " + expandedListText);
 
-
+        animBounce = AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.bounce);
+        game_txt.startAnimation(animBounce);
 //        LinearLayout ll = (LinearLayout) findViewById(R.id.word);
 //        LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 //
@@ -118,62 +140,116 @@ public class GameActivity extends AppCompatActivity {
             }
             f_movie = new String(charArrayWord);
 //              f_movie = f_movie.replaceAll(".(?!$)", "$0  ");
-            game_txt.setText(null);
+//            game_txt.setText(null);
             game_txt.setText(f_movie);
+            game_txt.startAnimation(animBounce);
+
         }
         else
         {
             switch (bollywood) {
                 case 0:
-                    b.setBackgroundColor(Color.parseColor("#FF0000"));
+//                    b.setBackgroundColor(Color.parseColor("#FF0000"));
+                    b.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_round_red_left));
                     bollywood=1;
+                    score=9;
                     break;
                 case 1:
                     o1.setBackgroundColor(Color.parseColor("#FF0000"));
                     bollywood=2;
+                    score=8;
                     break;
                 case 2:
                     l1.setBackgroundColor(Color.parseColor("#FF0000"));
                     bollywood=3;
+                    score=7;
                     break;
                 case 3:
                     l2.setBackgroundColor(Color.parseColor("#FF0000"));
                     bollywood=4;
+                    score=6;
                     break;
                 case 4:
                     y.setBackgroundColor(Color.parseColor("#FF0000"));
                     bollywood=5;
+                    score=5;
                     break;
                 case 5:
                     w.setBackgroundColor(Color.parseColor("#FF0000"));
                     bollywood=6;
+                    score=4;
                     break;
                 case 6:
                     o2.setBackgroundColor(Color.parseColor("#FF0000"));
                     bollywood=7;
+                    score=3;
                     break;
                 case 7:
                     o3.setBackgroundColor(Color.parseColor("#FF0000"));
                     bollywood=8;
+                    score=2;
                     break;
                 case 8:
-                    d.setBackgroundColor(Color.parseColor("#FF0000"));
+//                    d.setBackgroundColor(Color.parseColor("#FF0000"));
+                    d.setBackgroundDrawable(getResources().getDrawable(R.drawable.button_round_right_red));
                     bollywood=0;
-                    Toast.makeText(this, "You Lose!", Toast.LENGTH_SHORT).show();
-
+                    score=1;
+                    Intent i = new Intent(this, PopupActivity.class);
+                    i.putExtra("Score",score);
+                    startActivity(i);
+                    finish();
                     break;
 
             }
         }
-
-
-
-
-
-
         if(!f_movie.contains("_"))
         {
-            Toast.makeText(this, "Hurrayyyyy!!", Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(this, PopupActivity.class);
+            i.putExtra("Score",score);
+            startActivity(i);
+            finish();
+
         }
+    }
+
+    @Override
+    public void onPause() {
+        if (mAdView != null) {
+            mAdView.pause();
+        }
+        super.onPause();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mAdView != null) {
+            mAdView.resume();
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+
+        networkStateReceiver.removeListener(this);
+        this.unregisterReceiver(networkStateReceiver);
+
+        if (mAdView != null) {
+            mAdView.destroy();
+        }
+        super.onDestroy();
+    }
+
+    @Override
+    public void networkAvailable() {
+        mAdView.setVisibility(View.VISIBLE);
+        AdRequest adRequest = new AdRequest.Builder()
+                .build();
+        mAdView.loadAd(adRequest);
+    }
+
+    @Override
+    public void networkUnavailable() {
+        mAdView.setVisibility(View.GONE);
     }
 }

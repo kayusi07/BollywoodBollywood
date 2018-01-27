@@ -31,6 +31,7 @@
             android:theme="@android:style/Theme.Translucent" />
 
         <activity android:name=".GameActivity"></activity>
+        <activity android:name=".PopupActivity"/>
     </application>
 
 </manifest>

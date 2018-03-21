@@ -1,6 +1,5 @@
-package com.kayushi07.bollywood;
+package com.kayushi07.bollywood.Activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -14,14 +13,14 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-
-import org.w3c.dom.Text;
+import com.kayushi07.bollywood.Receiver.NetworkStateReceiver;
+import com.kayushi07.bollywood.R;
 
 /**
  * Created by Ayushi on 27-01-2018.
  */
 
-public class PopupActivity extends AppCompatActivity implements NetworkStateReceiver.NetworkStateReceiverListener{
+public class PopupActivity extends AppCompatActivity implements NetworkStateReceiver.NetworkStateReceiverListener {
 
     private NetworkStateReceiver networkStateReceiver;
     AdView mAdView;

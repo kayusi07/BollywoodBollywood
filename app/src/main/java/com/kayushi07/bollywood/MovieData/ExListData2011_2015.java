@@ -1,4 +1,4 @@
-package MovieData;
+package com.kayushi07.bollywood.MovieData;
 
 import java.util.ArrayList;
 import java.util.HashMap;

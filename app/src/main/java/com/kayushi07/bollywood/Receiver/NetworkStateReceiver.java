@@ -1,4 +1,4 @@
-package com.kayushi07.bollywood;
+package com.kayushi07.bollywood.Receiver;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.kayushi07.bollywood.MainActivity">
+    android:background="@drawable/bg"
+    tools:context="com.kayushi07.bollywood.Activity.MainActivity">
 
 
     <Button

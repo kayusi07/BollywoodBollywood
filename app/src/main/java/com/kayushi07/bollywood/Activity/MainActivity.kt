@@ -1,18 +1,14 @@
-package com.kayushi07.bollywood
+package com.kayushi07.bollywood.Activity
 
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
 import android.widget.Button
-import android.widget.Toast
+import com.kayushi07.bollywood.R
 
 class MainActivity : AppCompatActivity() {
 

@@ -10,161 +10,145 @@
     >
 
     <RelativeLayout
-
+        android:background="@drawable/movie"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/bollywood"
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:id="@+id/bollywood"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:orientation="horizontal">
+            android:id="@+id/B_btn"
+            android:layout_weight="1"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:background="@drawable/button_round_green_left"
+            android:text="B"/>
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/B_btn"
-                android:layout_weight="1"
-                android:textStyle="bold"
-                android:textColor="@android:color/white"
-                android:textSize="20dp"
-                android:background="@color/colorButtonGreen"
-                android:text="B"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/O_btn"
-                android:layout_weight="1"
-                android:textColor="@android:color/white"
-                android:textSize="20dp"
-                android:background="@color/colorButtonGreen"
-                android:textStyle="bold"
-                android:text="O"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/L_btn"
-                android:layout_weight="1"
-                android:textStyle="bold"
-                android:textColor="@android:color/white"
-                android:textSize="20dp"
-                android:background="@color/colorButtonGreen"
-                android:text="L"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/L2_btn"
-                android:layout_weight="1"
-                android:textStyle="bold"
-                android:textColor="@android:color/white"
-                android:textSize="20dp"
-                android:background="@color/colorButtonGreen"
-                android:text="L"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/Y_btn"
-                android:layout_weight="1"
-                android:textStyle="bold"
-                android:textColor="@android:color/white"
-                android:textSize="20dp"
-                android:background="@color/colorButtonGreen"
-                android:text="Y"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/W_btn"
-                android:layout_weight="1"
-                android:textStyle="bold"
-                android:textColor="@android:color/white"
-                android:textSize="20dp"
-                android:background="@color/colorButtonGreen"
-                android:text="W"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/O2_btn"
-                android:layout_weight="1"
-                android:textStyle="bold"
-                android:textColor="@android:color/white"
-                android:textSize="20dp"
-                android:background="@color/colorButtonGreen"
-                android:text="O"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/O3_btn"
-                android:layout_weight="1"
-                android:textColor="@android:color/white"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:background="@color/colorButtonGreen"
-                android:text="0"/>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/D_btn"
-                android:layout_weight="1"
-                android:textColor="@android:color/white"
-                android:textSize="20dp"
-                android:background="@color/colorButtonGreen"
-                android:textStyle="bold"
-                android:text="D"/>
-        </LinearLayout>
-
-
-
-
-        <LinearLayout
-            android:id="@+id/word"
-            android:layout_below="@+id/bollywood"
-            android:layout_width="match_parent"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="50dp"
+        <Button
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:id="@+id/O_btn"
+            android:layout_weight="1"
+            android:textSize="20dp"
+            android:background="@color/colorButtonGreen"
+            android:textStyle="bold"
+            android:text="O"/>
 
-            <ImageButton
-                android:layout_width="50dp"
-                android:id="@+id/b_hint"
-                android:background="@drawable/button_round"
-                android:padding="5dp"
-                android:layout_margin="5dp"
-                android:paddingBottom="50dp"
-                android:src="@drawable/hint"
-                android:layout_gravity="right"
-                android:scaleType="fitCenter"
-                android:layout_height="50dp" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/L_btn"
+            android:layout_weight="1"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:background="@color/colorButtonGreen"
+            android:text="L"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:id="@+id/movie_name"
-                android:gravity="center"
-                android:textColor="@android:color/black"
-                android:textAlignment="center"
-                android:layout_gravity="center"
-                android:paddingTop="10dp"
-                android:textSize="40dp"
-                android:fontFamily="serif-monospace"
-                android:text="S__M_P__ _OD__ HHH__HH"
-                android:textStyle="bold"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/L2_btn"
+            android:layout_weight="1"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:background="@color/colorButtonGreen"
+            android:text="L"/>
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/Y_btn"
+            android:layout_weight="1"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:background="@color/colorButtonGreen"
+            android:text="Y"/>
 
-        </LinearLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/W_btn"
+            android:textSize="20dp"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:background="@color/colorButtonGreen"
+            android:text="W"/>
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/O2_btn"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:background="@color/colorButtonGreen"
+            android:text="O"/>
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/O3_btn"
+            android:layout_weight="1"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:background="@color/colorButtonGreen"
+            android:text="0"/>
 
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/D_btn"
+            android:layout_weight="1"
+            android:textSize="20dp"
+            android:background="@drawable/button_round_right"
+            android:textStyle="bold"
+            android:text="D"/>
+    </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/word"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bollywood"
+        android:gravity="center"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="70dp"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:id="@+id/b_hint"
+            android:background="@drawable/button_round"
+            android:padding="5dp"
+            android:layout_margin="5dp"
+            android:paddingBottom="50dp"
+            android:src="@drawable/hint"
+            android:layout_gravity="right"
+            android:scaleType="fitCenter"
+            android:layout_height="50dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/movie_name"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:textColor="@android:color/black"
+            android:textSize="46dp"
+            android:fontFamily="serif-monospace"
+            android:text="HARRY POTTER AND THE GOBLET OF FIRE"
+            android:textStyle="bold"/>
+    </LinearLayout>
 
         <include layout="@layout/keyboard"
             android:id="@+id/keys"
@@ -172,12 +156,6 @@
             android:layout_height="wrap_content"
             android:layout_width="match_parent"></include>
 
-        <ImageView
-            android:layout_below="@+id/keys"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitXY"
-            android:src="@drawable/bgc"/>
 
         <!-- view for AdMob Banner Ad -->
         <com.google.android.gms.ads.AdView

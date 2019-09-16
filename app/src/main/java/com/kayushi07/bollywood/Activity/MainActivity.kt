@@ -6,7 +6,7 @@ import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdView
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.widget.Button
 import com.kayushi07.bollywood.R
 
@@ -22,21 +22,13 @@ class MainActivity : AppCompatActivity() {
         val adRequest = AdRequest.Builder()
                 .setRequestAgent("android_studio:ad_template").build()
         adView.loadAd(adRequest)
-
-        // Toasts the test ad message on the screen. Remove this after defining your own ad unit ID.
-//        Toast.makeText(this, TOAST_TEXT, Toast.LENGTH_LONG).show()
-
-
+        //creating a database
+//        mDatabase = openOrCreateDatabase(DATABASE_NAME, Context.MODE_PRIVATE, null)
 
         val b_easy = findViewById(R.id.b_easy) as Button
-//        val b_medium = findViewById(R.id.b_medium) as Button
-//        val b_diffi = findViewById(R.id.b_diffi) as Button
-//        val b_very_diffi = findViewById(R.id.b_veryDiffi) as Button
 
         b_easy.setOnClickListener{
-            //            Toast.makeText(this, TOAST_TEXT, Toast.LENGTH_LONG).show()
-
-            val i = Intent(this, GameActivity::class.java);
+            val i = Intent(this, LevelActivity::class.java);
             startActivity(i);
         }
     }

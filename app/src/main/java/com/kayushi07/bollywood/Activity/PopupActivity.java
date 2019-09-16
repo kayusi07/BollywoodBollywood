@@ -2,10 +2,9 @@ package com.kayushi07.bollywood.Activity;
 
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RatingBar;
@@ -13,8 +12,9 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
-import com.kayushi07.bollywood.Receiver.NetworkStateReceiver;
+import com.kayushi07.bollywood.Model.DatabaseHandler;
 import com.kayushi07.bollywood.R;
+import com.kayushi07.bollywood.Receiver.NetworkStateReceiver;
 
 /**
  * Created by Ayushi on 27-01-2018.
@@ -24,6 +24,7 @@ public class PopupActivity extends AppCompatActivity implements NetworkStateRece
 
     private NetworkStateReceiver networkStateReceiver;
     AdView mAdView;
+    int level;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,14 +39,30 @@ public class PopupActivity extends AppCompatActivity implements NetworkStateRece
 
         Intent intent = getIntent();
         int score = intent.getIntExtra("Score",1);
-
+        level = intent.getIntExtra("Level",1);
         final RatingBar rate = (RatingBar) findViewById(R.id.rate);
         rate.setRating(score/2);
+
+        DatabaseHandler mDB = new DatabaseHandler(getApplicationContext());
+//        SQLiteDatabase db = mDB.getReadableDatabase();
+
+        int[] sc;
+        sc = mDB.getScore(level);
+        int total_score, unlock_score;
+        total_score = sc[0];
+        unlock_score = sc[1];
+
+        int f_score, diff_score;
+        f_score= score + total_score;
+        mDB.updateScore(level, f_score);
+
+        diff_score = unlock_score - f_score;
 
         TextView txtScore = (TextView) findViewById(R.id.txt_status);
         TextView txtTotalScore = (TextView) findViewById(R.id.txt_total_score);
         TextView txtHighestScore = (TextView) findViewById(R.id.txt_high_score);
-
+        TextView txtLevel = (TextView) findViewById(R.id.level);
+        txtLevel.setText("LEVEL " + level);
 
         Button next = (Button) findViewById(R.id.next_game);
 
@@ -94,24 +111,30 @@ public class PopupActivity extends AppCompatActivity implements NetworkStateRece
         });
 
 
-        int total_Score;
+//        int total_Score;
+//        SharedPreferences prefs = getSharedPreferences("Bollywood Score", MODE_PRIVATE);
+//        SharedPreferences.Editor editor =  prefs.edit();
+//        int scoreText = prefs.getInt("gameScore", 0);
+//        int high_score = prefs.getInt("highScore",0);
+//       total_Score = score + scoreText;
+//        editor.putInt("gameScore", total_Score);
+//        if(total_Score>high_score){
+//            high_score=total_Score;
+//            editor.putInt("highScore", high_score);}//
+//        editor.apply();
 
-        SharedPreferences prefs = getSharedPreferences("Bollywood Score", MODE_PRIVATE);
 
-        SharedPreferences.Editor editor =  prefs.edit();
-        int scoreText = prefs.getInt("gameScore", 0);
-        int high_score = prefs.getInt("highScore",0);
-       total_Score = score + scoreText;
-        editor.putInt("gameScore", total_Score);
+        txtTotalScore.setText("" + f_score);//total_Score);
 
-        txtTotalScore.setText("" + total_Score);//total_Score);
+        String nextLevelStr;
+        if(diff_score <= 0)
+        {
+            nextLevelStr = " ";
+        }
+        else
+        nextLevelStr = "You need " + diff_score + " more points to unlock next level.";
 
-        if(total_Score>high_score){
-            high_score=total_Score;
-            editor.putInt("highScore", high_score);}
-
-        editor.apply();
-        txtHighestScore.setText("" + high_score);
+        txtHighestScore.setText(nextLevelStr);
 
 
     }

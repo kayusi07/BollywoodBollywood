@@ -32,9 +32,20 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
 
+        <activity android:name=".Activity.LevelActivity"></activity>
         <activity android:name=".Activity.GameActivity"
             android:theme="@style/AppThemeGame"></activity>
         <activity android:name=".Activity.PopupActivity"/>
+
+        <meta-data
+            android:name="com.google.android.gms.ads.AD_MANAGER_APP"
+            android:value="true"/>
+
+
     </application>
+
+    <meta-data
+        android:name="com.google.android.gms.ads.APPLICATION_ID"
+        android:value="ca-app-pub-5152778234781012~4510752976"/>
 
 </manifest>

@@ -7,5 +7,6 @@
     <!- -->
     <string name="banner_ad_unit_id">ca-app-pub-5152778234781012/9085967393</string>
     <string name="rewarded_ad">ca-app-pub-5152778234781012/4863168195</string>
-
+    <string name="b_play">PLAY</string>
+    <string name="start">Start</string>
 </resources>

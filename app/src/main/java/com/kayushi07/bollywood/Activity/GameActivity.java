@@ -1,16 +1,18 @@
 package com.kayushi07.bollywood.Activity;
 
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.SoundPool;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -23,6 +25,16 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
+import com.kayushi07.bollywood.MovieDataPump.Level01;
+import com.kayushi07.bollywood.MovieDataPump.Level02;
+import com.kayushi07.bollywood.MovieDataPump.Level03;
+import com.kayushi07.bollywood.MovieDataPump.Level04;
+import com.kayushi07.bollywood.MovieDataPump.Level05;
+import com.kayushi07.bollywood.MovieDataPump.Level06;
+import com.kayushi07.bollywood.MovieDataPump.Level07;
+import com.kayushi07.bollywood.MovieDataPump.Level08;
+import com.kayushi07.bollywood.MovieDataPump.Level09;
+import com.kayushi07.bollywood.MovieDataPump.Level10;
 import com.kayushi07.bollywood.Receiver.NetworkStateReceiver;
 import com.kayushi07.bollywood.R;
 
@@ -31,7 +43,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-import com.kayushi07.bollywood.MovieData.ExListData2011_2015;
 
 /**
  * Created by Ayushi on 12-01-2018.
@@ -40,12 +51,11 @@ import com.kayushi07.bollywood.MovieData.ExListData2011_2015;
 public class GameActivity extends AppCompatActivity implements NetworkStateReceiver.NetworkStateReceiverListener, RewardedVideoAdListener {
 
     private NetworkStateReceiver networkStateReceiver;
-
     Button b,o1,l1,l2,y,w,o2,o3,d;
     TextView game_txt;
     List<String> expandableListTitle;
     HashMap<String, List<String>> expandableListDetail;
-    int count, randomMovie, bollywood=0, score=10;
+    int count, level, randomMovie, bollywood=0, score=10;
     String f_movie, lowerMovie;
     Animation animBounce,animFade;
     private AdView mAdView;
@@ -53,11 +63,24 @@ public class GameActivity extends AppCompatActivity implements NetworkStateRecei
     RewardedVideoAd mAd;
     ProgressDialog progressDoalog;
 
+    private SoundPool soundPool;
+    private AudioManager audioManager;
+    // Maximumn sound stream.
+    private static final int MAX_STREAMS = 5;
+    // Stream type.
+    private static final int streamType = AudioManager.STREAM_MUSIC;
+    int soundIdGun;
+    private float volume;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.game_page);
+
+//        Intent intent = getIntent();
+        level = Dummy.getCurrent_level();//intent.getIntExtra("Level",1);
+//        level++;
 
         networkStateReceiver = new NetworkStateReceiver();
         networkStateReceiver.addListener(this);
@@ -77,9 +100,55 @@ public class GameActivity extends AppCompatActivity implements NetworkStateRecei
         d = (Button) findViewById(R.id.D_btn);
         b_hint = (ImageButton) findViewById(R.id.b_hint);
 
-        expandableListDetail = ExListData2011_2015.getData();
+        switch(level){
+            case 1:
+                expandableListDetail = Level01.getData();
+                count = 80;
+                break;
+            case 2:
+                expandableListDetail = Level02.getData();
+                count = 413;
+                break;
+            case 3:
+                expandableListDetail = Level03.getData();
+                count = 448;
+                break;
+            case 4:
+                expandableListDetail = Level04.getData();
+                count = 335;
+                break;
+            case 5:
+                expandableListDetail = Level05.getData();
+                count = 336;
+                break;
+            case 6:
+                expandableListDetail = Level06.getData();
+                count = 349;
+                break;
+            case 7:
+                expandableListDetail = Level07.getData();
+                count = 259;
+                break;
+            case 8:
+                expandableListDetail = Level08.getData();
+                count = 263;
+                break;
+            case 9:
+                expandableListDetail = Level09.getData();
+                count = 312;
+                break;
+            case 10:
+                expandableListDetail = Level10.getData();
+                count = 344;
+                break;
+
+
+
+        }
+
+//        expandableListDetail = ExListData2011_2015.getData();
         expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
-        count = 711;
+//        count = 711;
 
         Random r = new Random();
         randomMovie = r.nextInt(count);
@@ -95,7 +164,7 @@ public class GameActivity extends AppCompatActivity implements NetworkStateRecei
 
         for (int i = 0; i < charArrayM.length; i++) {
 
-            if (!(charArrayM[i] == 'A' || charArrayM[i] == 'E' || charArrayM[i] == 'I' || charArrayM[i] == 'O' || charArrayM[i] == 'U' || charArrayM[i] == ' ' || charArrayM[i] == '-' || charArrayM[i] == '.')) {
+            if (!(charArrayM[i] == 'A' || charArrayM[i] == 'E' || charArrayM[i] == 'I' || charArrayM[i] == 'O' || charArrayM[i] == 'U' || charArrayM[i] == ' ' || charArrayM[i] == '-'  || charArrayM[i] == ',' || charArrayM[i] == ':'|| charArrayM[i] == '&' || charArrayM[i] == '+'|| charArrayM[i] == '.'|| charArrayM[i] == '\'')) {
 
                 charArrayM[i] = '_';
             }
@@ -114,9 +183,6 @@ public class GameActivity extends AppCompatActivity implements NetworkStateRecei
         b_hint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
                 progressDoalog = new ProgressDialog(GameActivity.this);
                 progressDoalog.setIcon(R.drawable.hint);
                 progressDoalog.setMessage("Its loading....");
@@ -164,6 +230,54 @@ public class GameActivity extends AppCompatActivity implements NetworkStateRecei
         char[] charArrayWord = current_movie.toCharArray();
 
         if (lowerMovie.contains(alphabet)) {
+
+            // AudioManager audio settings for adjusting the volume
+            audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+
+            // Current volumn Index of particular stream type.
+            float currentVolumeIndex = (float) audioManager.getStreamVolume(streamType);
+
+            // Get the maximum volume index for a particular stream type.
+            float maxVolumeIndex  = (float) audioManager.getStreamMaxVolume(streamType);
+
+            // Volumn (0 --> 1)
+            this.volume = currentVolumeIndex / maxVolumeIndex;
+
+            // Suggests an audio stream whose volume should be changed by
+            // the hardware volume controls.
+            this.setVolumeControlStream(streamType);
+
+            // For Android SDK >= 21
+            if (Build.VERSION.SDK_INT >= 21 ) {
+
+                AudioAttributes audioAttrib = new AudioAttributes.Builder()
+                        .setUsage(AudioAttributes.USAGE_GAME)
+                        .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                        .build();
+
+                SoundPool.Builder builder= new SoundPool.Builder();
+                builder.setAudioAttributes(audioAttrib).setMaxStreams(MAX_STREAMS);
+
+                this.soundPool = builder.build();
+            }
+            // for Android SDK < 21
+            else {
+                // SoundPool(int maxStreams, int streamType, int srcQuality)
+                this.soundPool = new SoundPool(MAX_STREAMS, AudioManager.STREAM_MUSIC, 0);
+            }
+            // Load sound file (gun.wav) into SoundPool.
+            soundIdGun = this.soundPool.load(this, R.raw.gun,1);
+            // When Sound Pool load complete.
+
+            this.soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+                @Override
+                public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                    float leftVolumn = volume;
+                    float rightVolumn = volume;
+                    // Play sound of gunfire. Returns the ID of the new stream.
+                    soundPool.play(soundIdGun,leftVolumn, rightVolumn, 1, 0, 1f);                }
+            });
+
 
             for (int in = -1; (in = lowerMovie.indexOf(acc, in)) != -1; in++) {
                 charArrayWord[in] = acc;
@@ -224,6 +338,7 @@ public class GameActivity extends AppCompatActivity implements NetworkStateRecei
                     bollywood=0;
                     score=1;
                     Intent i = new Intent(this, PopupActivity.class);
+                    i.putExtra("Level", level);
                     i.putExtra("Score",score);
                     startActivity(i);
                     finish();
@@ -235,6 +350,8 @@ public class GameActivity extends AppCompatActivity implements NetworkStateRecei
         {
             Intent i = new Intent(this, PopupActivity.class);
             i.putExtra("Score",score);
+            i.putExtra("Level", level);
+
             startActivity(i);
             finish();
 
@@ -338,6 +455,8 @@ public class GameActivity extends AppCompatActivity implements NetworkStateRecei
         if(!f_movie.contains("_"))
         {
             Intent i = new Intent(this, PopupActivity.class);
+            i.putExtra("Level", level);
+
             i.putExtra("Score",score);
             startActivity(i);
             finish();
@@ -357,19 +476,27 @@ public class GameActivity extends AppCompatActivity implements NetworkStateRecei
 
         progressDoalog.dismiss();
 
+        try {
+            progressDoalog = new ProgressDialog(GameActivity.this);
+            progressDoalog.setMessage("Please connect to the Internet to watch video to get free hint. Try Again.");
+            progressDoalog.setTitle("No Connection!");
+            progressDoalog.setIcon(R.drawable.hint);
+            progressDoalog.setCancelable(false);
+            progressDoalog.setButton(DialogInterface.BUTTON_NEGATIVE, "OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            progressDoalog.show();
 
-        progressDoalog = new ProgressDialog(GameActivity.this);
-        progressDoalog.setMessage("Please connect to the Internet to watch video to get free hint. Try Again.");
-        progressDoalog.setTitle("No Connection!");
-        progressDoalog.setIcon(R.drawable.hint);
-        progressDoalog.setCancelable(false);
-        progressDoalog.setButton(DialogInterface.BUTTON_NEGATIVE, "OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        progressDoalog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void onRewardedVideoCompleted() {
 
     }
 }

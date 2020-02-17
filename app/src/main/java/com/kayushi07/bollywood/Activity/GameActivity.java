@@ -25,16 +25,26 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.reward.RewardItem;
 import com.google.android.gms.ads.reward.RewardedVideoAd;
 import com.google.android.gms.ads.reward.RewardedVideoAdListener;
-import com.kayushi07.bollywood.MovieDataPump.Level01;
-import com.kayushi07.bollywood.MovieDataPump.Level02;
-import com.kayushi07.bollywood.MovieDataPump.Level03;
-import com.kayushi07.bollywood.MovieDataPump.Level04;
-import com.kayushi07.bollywood.MovieDataPump.Level05;
-import com.kayushi07.bollywood.MovieDataPump.Level06;
-import com.kayushi07.bollywood.MovieDataPump.Level07;
-import com.kayushi07.bollywood.MovieDataPump.Level08;
-import com.kayushi07.bollywood.MovieDataPump.Level09;
-import com.kayushi07.bollywood.MovieDataPump.Level10;
+import com.kayushi07.bollywood.MovieDataPump.B_Level01;
+import com.kayushi07.bollywood.MovieDataPump.B_Level02;
+import com.kayushi07.bollywood.MovieDataPump.B_Level03;
+import com.kayushi07.bollywood.MovieDataPump.B_Level04;
+import com.kayushi07.bollywood.MovieDataPump.B_Level05;
+import com.kayushi07.bollywood.MovieDataPump.B_Level06;
+import com.kayushi07.bollywood.MovieDataPump.B_Level07;
+import com.kayushi07.bollywood.MovieDataPump.B_Level08;
+import com.kayushi07.bollywood.MovieDataPump.B_Level09;
+import com.kayushi07.bollywood.MovieDataPump.B_Level10;
+import com.kayushi07.bollywood.MovieDataPumpHollywood.E_Level01;
+import com.kayushi07.bollywood.MovieDataPumpHollywood.E_Level02;
+import com.kayushi07.bollywood.MovieDataPumpHollywood.E_Level03;
+import com.kayushi07.bollywood.MovieDataPumpHollywood.E_Level04;
+import com.kayushi07.bollywood.MovieDataPumpHollywood.E_Level05;
+import com.kayushi07.bollywood.MovieDataPumpHollywood.E_Level06;
+import com.kayushi07.bollywood.MovieDataPumpHollywood.E_Level07;
+import com.kayushi07.bollywood.MovieDataPumpHollywood.E_Level08;
+import com.kayushi07.bollywood.MovieDataPumpHollywood.E_Level09;
+import com.kayushi07.bollywood.MovieDataPumpHollywood.E_Level10;
 import com.kayushi07.bollywood.Receiver.NetworkStateReceiver;
 import com.kayushi07.bollywood.R;
 
@@ -71,6 +81,7 @@ public class GameActivity extends AppCompatActivity implements NetworkStateRecei
     private static final int streamType = AudioManager.STREAM_MUSIC;
     int soundIdGun;
     private float volume;
+    int gametype;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,7 +89,9 @@ public class GameActivity extends AppCompatActivity implements NetworkStateRecei
 
         setContentView(R.layout.game_page);
 
-//        Intent intent = getIntent();
+        Intent intent = getIntent();
+        gametype = intent.getIntExtra("gametype", 0);
+
         level = Dummy.getCurrent_level();//intent.getIntExtra("Level",1);
 //        level++;
 
@@ -100,50 +113,102 @@ public class GameActivity extends AppCompatActivity implements NetworkStateRecei
         d = (Button) findViewById(R.id.D_btn);
         b_hint = (ImageButton) findViewById(R.id.b_hint);
 
-        switch(level){
-            case 1:
-                expandableListDetail = Level01.getData();
-                count = 80;
-                break;
-            case 2:
-                expandableListDetail = Level02.getData();
-                count = 413;
-                break;
-            case 3:
-                expandableListDetail = Level03.getData();
-                count = 448;
-                break;
-            case 4:
-                expandableListDetail = Level04.getData();
-                count = 335;
-                break;
-            case 5:
-                expandableListDetail = Level05.getData();
-                count = 336;
-                break;
-            case 6:
-                expandableListDetail = Level06.getData();
-                count = 349;
-                break;
-            case 7:
-                expandableListDetail = Level07.getData();
-                count = 259;
-                break;
-            case 8:
-                expandableListDetail = Level08.getData();
-                count = 263;
-                break;
-            case 9:
-                expandableListDetail = Level09.getData();
-                count = 312;
-                break;
-            case 10:
-                expandableListDetail = Level10.getData();
-                count = 344;
-                break;
 
 
+        if(gametype == 0) //bolly
+        {
+            b.setText("B");
+            switch (level) {
+                case 1:
+                    expandableListDetail = B_Level01.getData();
+                    count = 80;
+                    break;
+                case 2:
+                    expandableListDetail = B_Level02.getData();
+                    count = 413;
+                    break;
+                case 3:
+                    expandableListDetail = B_Level03.getData();
+                    count = 448;
+                    break;
+                case 4:
+                    expandableListDetail = B_Level04.getData();
+                    count = 335;
+                    break;
+                case 5:
+                    expandableListDetail = B_Level05.getData();
+                    count = 336;
+                    break;
+                case 6:
+                    expandableListDetail = B_Level06.getData();
+                    count = 349;
+                    break;
+                case 7:
+                    expandableListDetail = B_Level07.getData();
+                    count = 259;
+                    break;
+                case 8:
+                    expandableListDetail = B_Level08.getData();
+                    count = 263;
+                    break;
+                case 9:
+                    expandableListDetail = B_Level09.getData();
+                    count = 312;
+                    break;
+                case 10:
+                    expandableListDetail = B_Level10.getData();
+                    count = 344;
+                    break;
 
+
+            }
+        }
+        else //engli
+        {
+            b.setText("H");
+
+            switch(level){
+                case 1:
+                    expandableListDetail = E_Level01.getData();
+                    count = 432;
+                    break;
+                case 2:
+                    expandableListDetail = E_Level02.getData();
+                    count = 268;
+                    break;
+                case 3:
+                    expandableListDetail = E_Level03.getData();
+                    count = 870;
+                    break;
+                case 4:
+                    expandableListDetail = E_Level04.getData();
+                    count = 612;
+                    break;
+                case 5:
+                    expandableListDetail = E_Level05.getData();
+                    count = 886;
+                    break;
+                case 6:
+                    expandableListDetail = E_Level06.getData();
+                    count = 652;
+                    break;
+                case 7:
+                    expandableListDetail = E_Level07.getData();
+                    count = 660;
+                    break;
+                case 8:
+                    expandableListDetail = E_Level08.getData();
+                    count = 812;
+                    break;
+                case 9:
+                    expandableListDetail = E_Level09.getData();
+                    count = 948;
+                    break;
+                case 10:
+                    expandableListDetail = E_Level10.getData();
+                    count = 626;
+                    break;
+            }
         }
 
 //        expandableListDetail = ExListData2011_2015.getData();
@@ -340,6 +405,7 @@ public class GameActivity extends AppCompatActivity implements NetworkStateRecei
                     Intent i = new Intent(this, PopupActivity.class);
                     i.putExtra("Level", level);
                     i.putExtra("Score",score);
+                    i.putExtra("gametype",gametype);
                     startActivity(i);
                     finish();
                     break;
@@ -351,7 +417,7 @@ public class GameActivity extends AppCompatActivity implements NetworkStateRecei
             Intent i = new Intent(this, PopupActivity.class);
             i.putExtra("Score",score);
             i.putExtra("Level", level);
-
+            i.putExtra("gametype",gametype);
             startActivity(i);
             finish();
 

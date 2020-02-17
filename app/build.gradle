@@ -10,8 +10,8 @@ android {
         applicationId "com.kayushi07.bollywood"
         minSdkVersion 15
         targetSdkVersion 29
-        versionCode 6
-        versionName "2.2"
+        versionCode 8
+        versionName "3.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -31,7 +31,7 @@ dependencies {
     implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.google.android.gms:play-services-ads:18.1.1'
+    implementation 'com.google.android.gms:play-services-ads:18.3.0'
     implementation 'androidx.appcompat:appcompat:1.0.0'
     testImplementation 'junit:junit:4.13-beta-3'
     androidTestImplementation 'androidx.test:runner:1.1.0'

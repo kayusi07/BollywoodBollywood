@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class Level10 {
+public class B_Level10 {
 
     public static HashMap<String, List<String>> getData() {
         HashMap<String, List<String>> expandableListDetail = new HashMap<String, List<String>>();

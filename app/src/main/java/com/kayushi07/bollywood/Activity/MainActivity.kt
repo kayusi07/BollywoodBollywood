@@ -16,7 +16,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         // Load an ad into the AdMob banner view.
         val adView = findViewById(R.id.adView) as AdView
         val adRequest = AdRequest.Builder()
@@ -29,6 +28,15 @@ class MainActivity : AppCompatActivity() {
 
         b_easy.setOnClickListener{
             val i = Intent(this, LevelActivity::class.java);
+            i.putExtra("gametype",0);
+            startActivity(i);
+        }
+
+        val b_hollywood = findViewById(R.id.b_hollywood) as Button
+
+        b_hollywood.setOnClickListener{
+            val i = Intent(this, LevelActivity::class.java);
+            i.putExtra("gametype",1);
             startActivity(i);
         }
     }

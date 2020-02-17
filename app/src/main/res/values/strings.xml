@@ -1,12 +1,7 @@
 <resources>
-    <string name="app_name">Bollywood Bollywood</string>
-
-    <!-- -
-        This is an ad unit ID for a banner test ad. Replace with your own banner ad unit id.
-        For more information, see https://support.google.com/admob/answer/3052638
-    <!- -->
-    <string name="banner_ad_unit_id">ca-app-pub-5152778234781012/9085967393</string>
-    <string name="rewarded_ad">ca-app-pub-5152778234781012/4863168195</string>
+    <string name="app_name">Bollywood Hollywood</string>
+    <string name="banner_ad_unit_id">ca-app-pub-5152778234781012/6428817331</string>
+    <string name="rewarded_ad">ca-app-pub-5152778234781012/8304650561</string>
     <string name="b_play">PLAY</string>
     <string name="start">Start</string>
 </resources>

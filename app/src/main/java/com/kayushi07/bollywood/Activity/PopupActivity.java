@@ -24,7 +24,7 @@ public class PopupActivity extends AppCompatActivity implements NetworkStateRece
 
     private NetworkStateReceiver networkStateReceiver;
     AdView mAdView;
-    int level;
+    int level, gametype;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,20 +41,21 @@ public class PopupActivity extends AppCompatActivity implements NetworkStateRece
         int score = intent.getIntExtra("Score",1);
         level = intent.getIntExtra("Level",1);
         final RatingBar rate = (RatingBar) findViewById(R.id.rate);
+        gametype = intent.getIntExtra("gametype",0);
         rate.setRating(score/2);
 
         DatabaseHandler mDB = new DatabaseHandler(getApplicationContext());
 //        SQLiteDatabase db = mDB.getReadableDatabase();
 
         int[] sc;
-        sc = mDB.getScore(level);
+        sc = mDB.getScore(level, gametype);
         int total_score, unlock_score;
         total_score = sc[0];
         unlock_score = sc[1];
 
         int f_score, diff_score;
         f_score= score + total_score;
-        mDB.updateScore(level, f_score);
+        mDB.updateScore(level, f_score, gametype);
 
         diff_score = unlock_score - f_score;
 
@@ -86,7 +87,7 @@ public class PopupActivity extends AppCompatActivity implements NetworkStateRece
                 txtScore.setText("Great!");
                 break;
             case 7:
-                txtScore.setText("Awesom!");
+                txtScore.setText("Awesome!");
                 break;
             case 8:
                 txtScore.setText("Fabulous");
@@ -105,6 +106,7 @@ public class PopupActivity extends AppCompatActivity implements NetworkStateRece
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(PopupActivity.this, GameActivity.class);
+                i.putExtra("gametype",gametype);
                 startActivity(i);
                 finish();
             }

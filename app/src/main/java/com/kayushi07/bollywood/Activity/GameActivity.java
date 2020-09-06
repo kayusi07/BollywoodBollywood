@@ -251,7 +251,7 @@ public class GameActivity extends AppCompatActivity implements NetworkStateRecei
                 progressDoalog = new ProgressDialog(GameActivity.this);
                 progressDoalog.setIcon(R.drawable.hint);
                 progressDoalog.setMessage("Its loading....");
-                progressDoalog.setTitle("Watch a short video to get a hint...");
+                progressDoalog.setTitle("View this ad to get a hint...");
                 progressDoalog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                 progressDoalog.show();
 

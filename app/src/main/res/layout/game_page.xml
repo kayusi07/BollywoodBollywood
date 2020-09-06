@@ -132,7 +132,7 @@
             android:padding="5dp"
             android:layout_margin="5dp"
             android:paddingBottom="50dp"
-            android:src="@drawable/hhh"
+            android:src="@drawable/i_video"
             android:layout_gravity="right"
             android:scaleType="fitCenter"
             android:layout_height="64dp" />

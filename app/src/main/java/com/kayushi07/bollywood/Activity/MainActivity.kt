@@ -12,7 +12,6 @@ import com.kayushi07.bollywood.R
 
 class MainActivity : AppCompatActivity() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -41,6 +40,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+//    override fun attachBaseContext(newBase: Context?) {
+//        super.attachBaseContext(newBase)
+//        MultiDex.install(this)
+//    }
     override fun onDestroy() {
 
         val editor = getSharedPreferences("Bollywood Score", Context.MODE_PRIVATE).edit()
